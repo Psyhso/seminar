@@ -256,36 +256,36 @@ def visualize_comparison(target_word, context_words, title1, title2, max_depth=6
 # =============================================================================
 # 5. ЗАПУСК
 # =============================================================================
+if __name__ == '__main__':
+    W = 76
+    print("=" * W)
+    print(f"{'СЛОВО':<8} {'КОНТЕКСТ':<36} {'ВЕРНО':<22} {'OK':^4}")
+    print("=" * W)
 
-W = 76
-print("=" * W)
-print(f"{'СЛОВО':<8} {'КОНТЕКСТ':<36} {'ВЕРНО':<22} {'OK':^4}")
-print("=" * W)
+    correct = 0
+    for word, context, true_title in test_cases:
+        best_synset, scores = wsd_graph(context, word)
+        pred_title = best_synset.title if best_synset else '?'
+        ok = '✅' if pred_title == true_title else '❌'
+        correct += (ok == '✅')
 
-correct = 0
-for word, context, true_title in test_cases:
-    best_synset, scores = wsd_graph(context, word)
-    pred_title = best_synset.title if best_synset else '?'
-    ok = '✅' if pred_title == true_title else '❌'
-    correct += (ok == '✅')
+        scores_str = ' | '.join(
+            f"{s.title}:{d:.2f}"
+            for s, d in sorted(scores.items(), key=lambda x: x[1])
+        )
+        print(f"{word:<8} {str(context)[:34]:<36} {true_title:<22} {ok:^4}")
+        print(f"         Расстояния: {scores_str}")
+        print()
 
-    scores_str = ' | '.join(
-        f"{s.title}:{d:.2f}"
-        for s, d in sorted(scores.items(), key=lambda x: x[1])
-    )
-    print(f"{word:<8} {str(context)[:34]:<36} {true_title:<22} {ok:^4}")
-    print(f"         Расстояния: {scores_str}")
+    print("=" * W)
+    print(f"ACCURACY: {correct}/{len(test_cases)}")
+    print("=" * W)
     print()
 
-print("=" * W)
-print(f"ACCURACY: {correct}/{len(test_cases)}")
-print("=" * W)
-print()
-
-print("Строю графы...")
-visualize_comparison('замок', ['башня', 'стена', 'рыцарь'],
-                     'СРЕДНЕВЕКОВЫЙ ЗАМОК', 'ЗАМОК ДЛЯ ЗАПИРАНИЯ')
-visualize_comparison('замок', ['бойница', 'донжон', 'ров'],
-                     'СРЕДНЕВЕКОВЫЙ ЗАМОК', 'ЗАМОК ДЛЯ ЗАПИРАНИЯ')
-visualize_comparison('ключ',  ['родник', 'источник', 'вода'],
-                     'ВОДНЫЙ ИСТОЧНИК', 'КЛЮЧ К ЗАМКУ')
+    print("Строю графы...")
+    visualize_comparison('замок', ['башня', 'стена', 'рыцарь'],
+                         'СРЕДНЕВЕКОВЫЙ ЗАМОК', 'ЗАМОК ДЛЯ ЗАПИРАНИЯ')
+    visualize_comparison('замок', ['бойница', 'донжон', 'ров'],
+                         'СРЕДНЕВЕКОВЫЙ ЗАМОК', 'ЗАМОК ДЛЯ ЗАПИРАНИЯ')
+    visualize_comparison('ключ',  ['родник', 'источник', 'вода'],
+                         'ВОДНЫЙ ИСТОЧНИК', 'КЛЮЧ К ЗАМКУ')

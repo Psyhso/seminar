@@ -19,6 +19,9 @@ if __name__ == '__main__':
         if target_word == 'выход':
             break
         _context_words = input('Контекст, в котором встретилось слово: ')
+        if not _context_words:
+            print("Контекст не может быть пустым.")
+            continue
         print()
 
         inference(_context_words, target_word)
