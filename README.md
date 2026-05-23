@@ -3,7 +3,7 @@
 Клонируйте репозиторий
 в терминале пишем (находясь в папке репозитория)
 - python -m venv venv
-- venv/Scripts/activate
+- venv\Scripts\activate
 
 - pip install -r requirements.txt
 
