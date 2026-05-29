@@ -1,1 +1,1 @@
-- Ссылка на гугл-диск с предобученными эмбеддингами.
+- Ссылка на гугл-диск с предобученными эмбеддингами. https://drive.google.com/drive/folders/1InD9gBMzbrUyy5oTasUiOEPApnIeTrU_?usp=sharing
